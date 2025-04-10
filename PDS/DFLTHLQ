@@ -1,0 +1,18 @@
+/* REXX    DFLTHLQ    Provide default high level qualifier and hlq for
+                      each site.  Primarly for use with REXXSKEL.
+
+           Written by ICEBERGers (rexxhead@yahoo.com) in the dark ages
+
+*/
+address TSO
+
+parse value mvsvar("SYSNAME") sysvar("SYSNODE") with,
+            #tk_cpu           node          .
+line = "CBT.U" node "CBT.U"            /* dflt-hlq site hlq ....  */
+
+if sysvar("SYSNEST") = "YES" then
+   push line
+else
+   say  line
+
+exit                                   /*@ DFLTHLQ                   */

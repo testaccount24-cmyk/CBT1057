@@ -1,0 +1,21 @@
+/* REXX    SMMAP      Identify Endevor datasets.  Returns a series of
+                           lines as follows:
+                      L.1 - Endevor-managed datsets
+                      L.n - ddname     staging-dsn     prod-dsn
+
+           Written by Chris Lewis as part of SHOWMEM
+
+     Modification History
+     19970604 fxc added JCLLIB and PROCLIB
+     20010403 fxc Endevor not used
+     20230411 fxc genericize
+
+*/
+address TSO
+
+queue ""
+queue "SYSPROC  <sysproc staging ds>   <sysproc production ds>   "
+queue "SYSEXEC  <sysexec staging ds>   <sysexec production ds>   "
+queue "INCLUDE  <pli staging ds>       <pli production ds>       "
+
+exit                                   /*@ SMMAP                     */

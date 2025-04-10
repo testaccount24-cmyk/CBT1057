@@ -1,0 +1,39 @@
+/* REXX    SHOWPARM   Called routine by SHOWMEM.  Designed to return
+                      additional datasets to search by DDNAME.  Each
+                      user should acquire a copy of this program and
+                      place the modified version in a dataset that is
+                      located preferentially (above) the following
+                      dataset in their SYSPROC/SYSEXEC concatenations:
+
+                         ***
+
+                      This program allows for customization for SHOWMEM.
+                      Each user can add/delete/modify DDNAMES and/or
+                      datasets.
+
+           Written by G052811 Chris Lewis 19950504
+
+     Modification History
+     19951108 ctl Create SHOWPARM from SHOW@PRM due to SHOWMEM rewrite
+     19960305 ctl Convert to array
+     20240310 fxc IDENT;
+
+*/
+address TSO
+arg ddname .
+
+string.         = ""
+
+string.SYSEXEC  = ,
+                  "FCLARKE.FILE433.PDS" ,
+                  "FCLARKE.FILE435.PDS" ,
+                  "FCLARKE.FILE1040.PDS" ,
+                  "FCLARKE.FILE1042.PDS" ,
+                  "FCLARKE.FILE1044.PDS" ,
+                  "FCLARKE.FILE1047.PDS" ,
+                  "FCLARKE.FILE1056.PDS" ,
+                  "FCLARKE.FILE1057.PDS" ,
+                  "FCLARKE.FILE1059.PDS"
+
+
+return(string.ddname)                  /*@ SHOWPARM                  */

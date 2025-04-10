@@ -1,0 +1,3 @@
+/* REXX    LCLPRTRX     returns default printer-id
+*/
+return                                 /*@ LCLPRTRX                  */

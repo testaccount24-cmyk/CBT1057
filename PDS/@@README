@@ -1,0 +1,77 @@
+/*
+ SHOWMEM is a software package useful in a configuration management
+ setting.  It provides facility to gather (for editing and other
+ purposes) related dialog elements.  See the HELP-text for SHOWMEM
+ (==> tso showmem ?) for details.
+
+ SHOWMEM supports pre-defined 'packages' consisting of elements from
+ multiple DDNames.  All the elements related to an application can be
+ made available regardless of where they are stored.  The display
+ includes normal ISPF statistics such that it is easy to determine
+ which version of an element is current and which is back-level.  If
+ you wish to avail yourself of this facility, you should customize
+ SMPKG to define your local packages.  Each individual user may have
+ their own personal SMPKG.
+
+
+ RUNDATA (not included in the package) is called to provide several
+ datapoints that will vary from site-to-site.  These are:
+      BASE       the dataset where not-for-general-distribution code
+                 is kept (fully-qualified and unquoted).
+      BLOCKDSS   datasets (fully-qualified and unquoted) that are
+                 never to be searched.
+      LOGDSN     for use by SMULOG.
+
+ The following EXEC may be customized to your site's needs, and used
+ to populate the RUNDATA table:
+    -------------------------------------
+    /* REXX $reload    Reloader */
+    address TSO
+
+    "NEWSTACK"
+    queue "BASE         CBT.SHOWMEM.EXEC "
+    queue "BLOCKDSS     FAN140.SEAGCMD FAN140.SFANCMD ",
+           " ISP.SISPCLIB ISP.SISPEXEC "
+    queue "LOGDSN       CBT.CBTTRAK.LOG     "
+    "%RUNDATA WRITE TBLKEY SHOWMEM ((MONITOR"
+    "DELSTACK"
+
+    exit
+    -------------------------------------
+
+ The following routines should be customized by the installer at
+ the local site:
+
+ LCLPRTRX defines the local printer.  This should be customized for
+          the site, and each user may have their own LCLPRTRX if
+          so desired.
+
+ PRINTDS  must be adjusted at each new site to provide a
+          properly-formed PRINT command.
+
+ SHOWDDNM should be customized to specify additional DDnames (if any)
+          to be searched.
+
+ SHOWPARM should be customized to specify additional datasets (if any)
+          to be searched within any specified or implied DDnames.
+
+ SHOWTASK may require changes in LOCAL_PREINIT.
+
+ SMARCH   may be customized by each individual user if necessary.
+
+ SMENDV   is used only in Endevor/MVS environments.
+
+ SMMAP    identifies staging datasets for ROLL operations.  It should
+          be customized once for the entire site.
+
+ SMNDM    is used only for Network Data Mover operations and may be
+          ignored if NDM is not active at your site.
+
+ SMPKG    identifies members-by-DDname and should be updated for each
+          new package to be processed.  The text supplied here is an
+          example of how a completed SMPKG might appear.
+
+ SMPREF   identifies the target dataset for an ACQUIRE operation.
+          Adjust as needed.
+
+*/

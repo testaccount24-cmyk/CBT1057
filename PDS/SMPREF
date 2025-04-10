@@ -1,0 +1,11 @@
+/* REXX    SMPREF     Used by SHOWMEM for an ACQUIRE to determine
+                      default dataset.
+
+           Written by Chris Lewis 19970829
+
+     Modification History
+     20240310 fxc IDENT;
+
+*/
+pref = userid()".ENDV"
+exit(pref)                             /*@ SMPREF                    */

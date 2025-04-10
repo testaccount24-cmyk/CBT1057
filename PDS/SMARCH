@@ -1,0 +1,19 @@
+/* REXX    SMARCH     Return the archive dataset for a specified
+                      ddname.  Is needed for SHOWMEM rolls.
+
+           Written by G052811 Chris Lewis 19970506
+
+     Modification History
+     20240310 fxc IDENT;
+
+*/
+address TSO
+arg ddname .
+user = userid()
+
+arch.         =  user".SAVE."ddname
+arch.SYSPROC  =  user".SAVE.EXEC"
+arch.SYSEXEC  =  user".SAVE.REXX"
+arch.SYSHELP  =  user".SAVE.HELP"
+
+return(arch.ddname)                    /*@ SMARCH                    */

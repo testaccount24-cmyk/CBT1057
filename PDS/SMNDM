@@ -1,0 +1,8 @@
+/* REXX    SMNDM      Return a list of sites to ship to.  Each site
+                      will be shipped to when a Roll to Production
+                      occurs.  This will keep each site listed in
+                      sync.
+*/
+address TSO
+sites = "CBT    CBT   "
+return(sites)                          /*@ SMNDM                     */

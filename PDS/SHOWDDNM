@@ -1,0 +1,29 @@
+/* REXX    SHOWDDNM   Called by SHOWMEM to provide a list of user
+                      specified default DDNAMEs.  To modify, each
+                      user should acquire their own copy and place
+                      the modifided version in a dataset located
+                      preferentially to ICEBERG.
+
+           Written by G052811 Chris Lewis 19951226
+
+     Modification History
+     19960826 ctl Remove SYSHELP from ddname list.  It is unnecessary.
+
+*/
+address TSO
+
+sw.           = 0
+sw.nested     = sysvar("SYSNEST") = "YES"
+/*
+valid_ddnames = "JCLLIB DOCLIB SOURCE",
+                "0DRV SPECIAL INCLUDE",
+                "PROCLIB CA7"   */     /* Change here                */
+valid_ddnames = "INCLUDE",
+                "PROCLIB    "          /* Change here                */
+
+if sw.nested then                      /* If nested, then return     */
+   queue valid_ddnames                 /* via the stack.             */
+else
+   say   valid_ddnames                 /* write to the screen        */
+
+exit                                   /*@ SHOWDDNM                  */

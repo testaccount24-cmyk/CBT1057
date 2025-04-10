@@ -1,0 +1,97 @@
+/* REXX    SMPKG      Return a usable parm string by nickname.
+                      Each line returned should be in the following
+                      format:
+
+                      ddname memname memname ................
+
+                      The first token must be the ddname and it
+                      should be followed by at least 1 member name.
+
+           Written by Chris Lewis 19970512
+
+     Modification History
+     19980903 fxc added HELP and enabled "*"; RXSKLY2K;
+     20020206 fxc drop NOSTACK; if "*", say the list
+     20230709 fxc clean-up SHOWMEM; all panels are now internal;
+     20240701 fxc correct UPOE name;
+
+*/
+address TSO
+pkglist = Space( ,
+          "FAMTREE FINDLIBS PLIMACS SCHED SHOWLIBS SHOWMEM UTILITY",,
+                  3 )
+
+arg pkgnames "((" opts
+
+if pkgnames = "?" then call HELP
+if pkgnames = "*" then do; say pkglist; return; end
+
+parse value "EF"X      with   ,
+            xef   data   list.  .
+
+
+list.FAMTREE       = "SYSEXEC",
+                       "FAMTREE ADDROOT FTIMPORT REORDER SHUFFLE",
+                       "BRTHDAYS"
+
+list.FINDLIBS      = "SYSEXEC",
+                       "FINDLIBS SHOWLIBS DSVCSI DIRSTATS TRAPOUT"
+
+list.PLIMACS       = "SYSEXEC",
+                       "ADDXREF ALLPLIB CALLEDBY COMBINE COMPARM COMPDT ",
+                       "COMPILE COMPSTAT ELEMENTS ELEMLEN ENTCOMM IOSTMT",
+                       "LCOMM ONEPERLN PARSEDCL PGFS PLIFLOW PLILBLS    ",
+                       "PLIMSGE PLIMSGO PLIMSGS PLINIT PLIPARA PLIPOS   ",
+                       "PLISKIP PLIXREF PLIXREFE PLIXREFO QIO QJAM QSQL ",
+                       "SEGMENT SHORTPG SLICKIO SPLITDO TRIMPLI WHATINC "
+
+list.SCHED         = "SYSEXEC",
+                       "SCHED MTHLIM SCHINIT"
+
+list.SHOWLIBS      = list.FINDLIBS
+
+list.SHOWMEM       = "SYSEXEC",
+                       "HURL ICEUSER SHOWDDNM SHOWMEM SHOWTASK SMARCH",
+                       "SMENDV SMHELP SMMAP SMNDM SMPKG SMPREF SMULOG",
+                       "SHOWPARM  UPOE@$ST "
+
+utils =  "@DEIMBED ADDCMDS ALIST ATTACH COMMANDS DC DFLTHLQ",
+         "DFLTTLIB DUP",
+         "FCSUPBR FCSUPED FCXREF FIRSTIME FTEDIT JALIGN KEDBASE LA",
+         "LCLPRTRX LMEDIT MEMBERS OBTAIN PDSCOPY PDSCOPYD",
+         "CNAXKED CNAXKBR CNAXKVW",
+         "ADDSW ADDSKIP ADDLV",
+         "REXXSKEL STAKEDIT"
+list.UTILITY       = "SYSEXEC",
+                         utils (xef),
+                     "SYSPROC",
+                         utils
+
+do while pkgnames <> ""
+   parse var pkgnames pkg pkgnames
+   data = list.pkg
+   do until data = ""
+      parse var data rtnval (xef) data
+      queue rtnval
+   end
+end
+
+exit                                   /*@ SMPKG                     */
+/*
+.  ----------------------------------------------------------------- */
+HELP:                                  /*@                           */
+"CLEAR"
+say "HELP for SMPKG:                                                           "
+say "                                                                          "
+say "SMPKG accepts one parameter: <pkgnames>.                                  "
+say "                                                                          "
+say "<pkgnames> may be a list of known packages, or '?', or '*'.               "
+say "                                                                          "
+say "    '?'  delivers this HELP-text.                                         "
+say "                                                                          "
+say "    '*'  delivers a list of the available <pkgnames>.                     "
+say "                                                                          "
+say "    anything else is presumed to be one or more <pkgnames> for which SMPKG"
+say "      is to return the DDNAMEs and MEMBERnames connected to that package. "
+say "                                                                          "
+exit                                   /*@ HELP                      */

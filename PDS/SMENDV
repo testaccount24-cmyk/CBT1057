@@ -1,0 +1,19 @@
+/* REXX    SMENDV     Return the environment system, subsys, type
+                      and ccid for a given ddname.  Data will be
+                      returned on the first line of the stack.
+
+           Written by Chris Lewis 19970410
+
+     Modification History
+     20010403 fxc Endevor not used
+     20240310 fxc IDENT;
+
+*/
+address TSO
+arg ddname .
+
+data.         =  "ERROR     ERROR  ERROR    ERROR    ERROR"
+
+push data.ddname
+
+exit                                   /*@ SMENDV                    */

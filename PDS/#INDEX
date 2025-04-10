@@ -1,0 +1,61 @@
+
+         'FCLARKE.FILE1057.PDS' - Directory
+
+
+           Usage or
+ Member    Caller      Description
+ ========  =========   =====================================
+
+ $$$#DATE  data        Download stats
+
+ #INDEX    data        This member
+
+ @@README  text        Installation instructions
+
+ @FIL1057  text        About the content of this dataset
+
+ DFLTHLQ   exec        Provide default HLQ
+
+ DFLTTLIB  fragment    How to set up a default ISPTLIB
+
+ HURL      exec        NDM ship to remote site
+
+ ICEUSER   exec        List of 'special' users
+
+ LA        exec        LISTA ST to a scrollable display
+
+ LCLPRTRX  stub        Set local printer parms
+
+ MEMBERS   exec        Return memberlist to the stack
+
+ PDSCOPY   exec        Probably obsolete
+
+ PDSCOPYD  exec        Copy a member with stats
+
+ PRINTDS   exec        Route data to printer (unfinished)
+
+ SHOWDDNM  subr        User-specified DDNames
+
+ SHOWMEM   driver      Links to remote SHOWMEM code
+
+ SHOWPARM  subr        Provides addl datasets for a DDName
+
+ SHOWTASK  exec        Front-end for personal log system
+
+ SMARCH    subr        Where to archive this DDN
+
+ SMENDV    subr        Endevor/MVS parms
+
+ SMMAP     subr        Identify Endevor datasets
+
+ SMNDM     subr        NDM sites
+
+ SMPKG     subr        Identify packages
+
+ SMPREF    subr        Set prefix for acquired datasets
+
+ SMULOG    subr        Set logging datapoints
+
+ TBLGEN    exec        Build a table from AAMSTR specs
+
+ UPOE@$ST  exec        Alter ISPF statistics
